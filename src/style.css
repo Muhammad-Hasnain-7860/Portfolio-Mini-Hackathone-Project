@@ -1,0 +1,589 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter';
+}
+
+:root {
+  --text: #F05235;
+  --bg: #EAE6DD;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: #EAE6DD;
+  /* overflow-y: auto; */
+  /* overflow-x: hidden; */
+}
+
+.box {
+  width: 300px;
+  height: 400px;
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.loader {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
+}
+
+.loader .counter {
+  width: 100%;
+  display: flex;
+  align-items: end;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.loader h2 {
+  font-size: 120px;
+  color: white;
+  font-family: 'Anton';
+  font-weight: 400;
+  overflow: hidden;
+  line-height: 1;
+}
+
+.loader .count {
+  overflow: hidden;
+}
+
+.line {
+  width: 20px;
+  height: 100vh;
+  transform: translateY(100%);
+  background-color: var(--text);
+}
+
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  gap: 40px;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.hero-warpper {
+  height: 100vh;
+  width: 100%;
+}
+
+.hero-section nav {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero-section nav .links {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  overflow: hidden;
+  height: 20px;
+}
+
+nav .links p {
+  font-size: 18px;
+  cursor: pointer;
+}
+
+
+nav .logo img {
+  width: 150px;
+  height: 80px;
+}
+
+.nav-last {
+  padding: 7px 20px;
+  background-color: black;
+  border-radius: 10px;
+  display: flex;
+  gap: 10px;
+  color: white;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.links div {
+  position: relative;
+}
+
+.links .two {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.nav-last img {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.nav-last div {
+  height: 20px;
+  overflow: hidden;
+}
+
+.nav-last div p {
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.nav-last div p:nth-child(2) {
+  margin-top: 30px;
+}
+
+.hero {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 20px;
+}
+
+.hero-content,
+.hero-section nav,
+.hero-last {
+  position: relative;
+  z-index: 2;
+}
+
+.hero .hero-content {
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero-content h1 {
+  text-align: center;
+}
+
+.hero-content h1 span {
+  font-size: 8rem;
+  line-height: 1.1;
+  font-family: 'Anton';
+  font-weight: 500;
+  display: inline-block;
+}
+
+.hero-content h1 .name {
+  font-family: "Permanent Marker";
+  color: var(--text);
+  margin-left: 10px;
+}
+
+.hero-last {
+  width: 30%;
+  font-size: 18px;
+}
+
+.gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to bottom,
+      #EAE6DD,
+      #ECBDAE,
+      #EE8069,
+      #EF573B);
+
+  height: 400px;
+  z-index: 1;
+}
+
+.hero-img {
+  position: absolute;
+  top: 40%;
+  z-index: 999;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 2;
+  background-color: #EAE6DD;
+}
+
+.hero-img img {
+  width: 300px;
+  object-fit: cover;
+  height: 400px;
+  border-radius: 15px;
+}
+
+.links .one span {
+  display: inline-block;
+}
+
+.links .two span {
+  display: inline-block;
+}
+
+.main-about {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: end;
+  position: relative;
+  /* gap: 40px; */
+  padding: 100px 25px;
+  z-index: 100;
+  background-color: var(--bg);
+}
+
+
+.main-about p {
+  position: absolute;
+  top: 20%;
+}
+
+.ab-con {
+  width: 87%;
+}
+
+.ab-con h1 {
+  word-spacing: 7px;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  top: 80px;
+  left: 0;
+}
+
+.ab-con h1 span {
+  line-height: 1.1;
+  font-size: 65px;
+  font-weight: 100;
+  font-family: 'Anton';
+  display: inline-block;
+}
+
+.comming-project {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: var(--bg);
+}
+
+.comming-project .img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
+.current {
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  overflow: hidden;
+}
+
+.current img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  scale: 0.7;
+}
+
+.projects {
+  background-color: black;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.projects-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: white;
+  align-items: center;
+  width: 50%;
+}
+
+.projects-content h2 {
+  font-family: 'Anton';
+  font-size: 5.5rem;
+  line-height: 1;
+  font-weight: 500;
+  text-transform: uppercase;
+  word-spacing: -10px;
+  transform: translateY(100px);
+  opacity: 0;
+  text-align: center;
+}
+
+.projects-content h4 {
+  font-size: 20px;
+  text-transform: uppercase;
+  text-align: center;
+  transform: translateY(100px);
+  opacity: 0;
+}
+
+.projects-content .btn a {
+  padding: 15px 20px;
+  background-color: white;
+  border: none;
+  border-radius: 6px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-block;
+  transform: translateY(100px);
+  color: black;
+  opacity: 0;
+
+}
+
+.project-images {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.project-images img {
+  width: 70%;
+  height: 70%;
+  object-fit: cover;
+  border-radius: 7px;
+  position: absolute;
+  bottom: -600px;
+  object-position: center;
+}
+
+.projects-content div {
+  overflow: hidden;
+}
+
+.about-section {
+  position: relative;
+  top: 0;
+  left: 0;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--bg);
+  z-index: 100;
+  padding: 20px;
+}
+
+.about-section h1{
+  font-size: 30rem;
+  text-align: center;
+  line-height: 1;
+  font-family: 'Anton';
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.ab-c {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ab-c {
+  font-size: 1rem;
+}
+
+.ab-c p {
+  width: 35%;
+}
+
+
+.skills {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: var(--bg);
+  z-index: 120;
+  padding: 60px;
+}
+
+.sk-he {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+
+.sk-he h1{
+  font-size: 90px;
+  font-family: 'Anton';
+  font-weight: 400;
+  line-height: 1;
+}
+
+.sk-he p {
+  font-size: 45px;
+  color: #F05235;
+  font-family: "Permanent Marker";
+  font-weight: 300;
+
+}
+
+.skill-card {
+  width: 400px;
+  min-height: 280px;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  bottom: -600px;
+  position: absolute;
+}
+
+.skill-top,
+.skill-bottom {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.skill-card h2 {
+  font-family: "Anton";
+  font-size: 80px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.skill-card p {
+  width: 80%;
+  font-size: 16px;
+}
+
+.skill-bottom {
+  border-top: 1px solid #222;
+  padding-top: 15px;
+}
+
+.par {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.footer {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--bg);
+  position: relative;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 100;
+  padding: 30px;
+}
+
+.footer .footer-top{
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid black;
+  padding: 30px;
+}
+
+.footer-top div {
+  display: flex;
+  gap: 60px;
+}
+
+.footer-top h2{
+  font-size: 20px;
+}
+
+.footer p {
+  font-size: 20px;
+}
+
+.f-left div , .f-center div{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.f-center div a {
+  font-size: 20px;
+  text-decoration: none;
+  color: black;
+}
+.footer .f-right {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.f-right p{
+  text-align: end;
+}
+
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  z-index: 101;
+}
+
+
+.footer-bottom h1{
+  text-align: center;
+  line-height: 1;
+  text-align: center;
+  font-size: 20rem;
+  font-family: 'Anton';
+  font-weight: 400;
+  text-transform: uppercase;
+}
