@@ -1,546 +1,731 @@
 import "./style.css";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+gsap.registerPlugin(ScrollTrigger);
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+const Lenis = window.Lenis;
+let lenis;
 
-// selection
-const counterElement = document.querySelector(".counter h2");
-const oneBtns = document.querySelectorAll(".links div");
-const h2 = document.querySelector(".projects-content h2");
-const p = document.querySelector(".projects-content h4");
-const btn = document.querySelector(".projects-content .btn a");
-const aboutClick = document.querySelectorAll(".two-click-about");
-const projectClick = document.querySelectorAll(".two-click-project");
-const portfolioClick = document.querySelectorAll('.two-click-portfolio')
-
-
-
-aboutClick.forEach((aboutc)=>{
-  aboutc.addEventListener("click", () => {
-  gsap.to(window, {
-    duration: 1,
-    ease: "power1.inOut",
-    scrollTo: "#about",
-  });
-});
-})
-
-projectClick.forEach((projectc)=>{
-  projectc.addEventListener("click", () => {
-  gsap.to(window, {
-    duration: 1,
-    ease: "power1.inOut",
-    scrollTo: "#projects",
-  });
-});
-})
-
-portfolioClick.forEach((portfolio)=>{
-  
-  portfolio.addEventListener('click' , ()=>{
-    gsap.to(window, {
-    duration: 1,
-    ease: "power1.inOut",
-    scrollTo: "#skills",
-  });
-  }
-)
-})
-
-// loader
-const loaderTm = gsap.timeline();
-
-oneBtns.forEach((btn) => {
-  const hoverTimeLine = gsap.timeline({ paused: true });
-
-  const two = btn.querySelector(".two");
-  const one = btn.querySelector(".one");
-
-  gsap.set(two.querySelectorAll("span"), {
-    y: 30,
+if (typeof Lenis === "function") {
+  lenis = new Lenis({
+    duration: 1.1,
+    smoothWheel: true,
+    anchors: true,
   });
 
-  hoverTimeLine
-    .to(one.querySelectorAll("span"), {
-      y: -30,
-      stagger: 0.01,
-      duration: 0.6,
-      ease: "back.out(2)",
-    })
-    .to(
-      two.querySelectorAll("span"),
-      {
-        stagger: 0.01,
-        y: 0,
-        duration: 0.3,
-        ease: "back.out(2)",
-      },
-      "<",
-    );
+  const raf = (time) => lenis.raf(time * 1000);
+  lenis.on("scroll", ScrollTrigger.update);
+  gsap.ticker.add(raf);
+  gsap.ticker.lagSmoothing(0);
+  window.addEventListener(
+    "pagehide",
+    () => {
+      lenis.destroy();
+      gsap.ticker.remove(raf);
+    },
+    { once: true },
+  );
+} else {
+  console.error("Lenis CDN failed to load. Falling back to native scrolling.");
+}
 
-  btn.addEventListener("mouseenter", () => {
-    hoverTimeLine.play();
-  });
+const progressBar = document.querySelector(".scroll-progress span");
+const updateProgress = () => {
+  const scrollableHeight =
+    document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0;
 
-  btn.addEventListener("mouseleave", () => {
-    hoverTimeLine.reverse();
-  });
-});
-
-gsap.set(".hero h1 span", {
-  y: 300,
-});
-
-let loaderInfo = {
-  value: 0,
+  gsap.set(progressBar, { scaleX: progress });
 };
 
-loaderTm
-  .to(loaderInfo, {
-    duration: 1.3,
-    ease: "power2.inOut",
-    value: 100,
-    stagger: 0.5,
-    ease: "power2.inOut",
-    onUpdate: () => {
-      counterElement.textContent = `${Math.round(loaderInfo.value)}%`;
-    },
+lenis?.on("scroll", updateProgress);
+window.addEventListener("scroll", updateProgress, { passive: true });
+window.addEventListener("resize", updateProgress);
+updateProgress();
 
-    onStart:()=>{
-      document.body.style.overflowY = 'hidden'
-      document.body.style.overflowX = 'hidden'
-    },
+const featuredImage = document.querySelector(".featured-image");
+const featuredProject = document.querySelector(".featured-project");
+const featuredTitle = document.querySelector(".featured-title");
+const projectDescription = document.querySelector(".project-description");
+const projectCursor = document.querySelector(".project-cursor");
+const projectShowcase = document.querySelector(".project-showcase");
+const projectList = document.querySelector(".project-list");
+const projectFlowLine = document.querySelector(".project-flow-line");
+const prefersReducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)",
+).matches;
 
-    onComplete: () => {
-      gsap.to(".counter .line", {
-        duration: 0.8,
-        ease: "power2.inOut",
-        y: "-100%",
-      });
+const projectRows = [...document.querySelectorAll(".project-row")];
+const activateProject = (row) => {
+  if (row.classList.contains("is-active")) return;
 
-      gsap.to(counterElement, {
-        y: -120,
-        duration: 0.8,
-        ease: "back.out(2)",
-        onComplete: () => {
-          heroTL.play();
-        },
-      });
-    },
-  })
-  .to(
-    ".counter .line",
-    {
-      y: "0%",
-      ease: "power4.inOut",
-      duration: 1.2,
-    },
-    "-=1.1",
-  );
+  document
+    .querySelector(".project-row.is-active")
+    ?.classList.remove("is-active");
+  row.classList.add("is-active");
 
-const heroTL = gsap.timeline({ paused: true });
+  if (featuredImage instanceof HTMLImageElement) {
+    gsap.killTweensOf(featuredImage);
+    featuredImage.src = row.dataset.image ?? "";
+    featuredImage.alt = row.dataset.alt ?? row.dataset.title ?? "";
+    gsap.fromTo(
+      featuredImage,
+      { opacity: 0, scale: 1.035 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: prefersReducedMotion ? 0 : 0.55,
+        ease: "power2.out",
+      },
+    );
+  }
 
-heroTL
-  .to(".loader", {
-    yPercent: -100,
-    duration: 0.7,
-    ease: "power4.inOut",
-    delay: 0.3,
+  if (featuredProject instanceof HTMLAnchorElement) {
+    featuredProject.href = row.href;
+    featuredProject.setAttribute(
+      "aria-label",
+      `View ${row.dataset.title ?? "project"}`,
+    );
+  }
 
-    onComplete : ()=>{
-      document.body.style.overflowY = 'auto'
-      document.body.style.overflowX = 'hidden'
+  if (projectDescription) {
+    projectDescription.textContent = row.dataset.description ?? "";
+  }
 
-    }
-  })
-  .to(
-    ".hero h1 span",
-    {
-      y: 0,
-      duration: 0.6,
-      stagger: 0.01,
-      ease: "back.out(1)",
-    },
-    "-=0.3",
-  );
-
-// revel text scroll
-
-gsap.set(".ab-con h1 span", {
-  y: 350,
-});
-
-const revelTL = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".main-about",
-    start: "top 60%",
-  },
-});
-
-revelTL.to(".ab-con h1 span", {
-  y: 0,
-  duration: 0.6,
-  ease: "back.out(0.5)",
-  stagger: 0.01,
-});
-
-gsap.set(".comming-project .img", {
-  scale: 0.6,
-});
-
-gsap.to(".comming-project  .img", {
-  scale: 1,
-  ease: "none",
-  scrollTrigger: {
-    trigger: ".comming-project",
-    start: "top top",
-    end: "bottom top",
-    scrub: 1,
-    pin: true,
-
-    onEnter: () => {
-      gsap.to(".current", {
-        y: -100,
-        opacity: 0,
-        duration: 0.3,
-      });
-    },
-    onLeaveBack: () => {
-      gsap.to(".current", {
+  if (featuredTitle) {
+    gsap.killTweensOf(featuredTitle);
+    featuredTitle.textContent = row.dataset.title ?? "SELECTED PROJECT";
+    gsap.fromTo(
+      featuredTitle,
+      { y: 8, opacity: 0 },
+      {
         y: 0,
         opacity: 1,
-        duration: 0.3,
+        duration: prefersReducedMotion ? 0 : 0.35,
+        ease: "power2.out",
+      },
+    );
+  }
+};
+
+projectRows.forEach((row) => {
+  row.addEventListener("pointerenter", () => activateProject(row));
+  row.addEventListener("focus", () => activateProject(row));
+
+  if (!prefersReducedMotion) {
+    gsap.fromTo(
+      row,
+      { x: -34, scale: 0.94, autoAlpha: 0.15 },
+      {
+        x: 0,
+        scale: 1,
+        autoAlpha: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: row,
+          start: "top 82%",
+          end: "center 50%",
+          scrub: 0.65,
+        },
+      },
+    );
+
+    gsap.fromTo(
+      row,
+      { x: 0, scale: 1, autoAlpha: 1 },
+      {
+        x: -28,
+        scale: 0.95,
+        autoAlpha: 0.15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: row,
+          start: "center 50%",
+          end: "bottom 18%",
+          scrub: 0.65,
+        },
+      },
+    );
+  }
+});
+
+if (projectShowcase && projectRows.length > 0) {
+  const updateProjectShowcase = () => {
+    const showcaseBounds = projectShowcase.getBoundingClientRect();
+    const isShowcaseVisible =
+      showcaseBounds.top < window.innerHeight && showcaseBounds.bottom > 0;
+
+    if (!isShowcaseVisible) {
+      return;
+    }
+
+    const viewportCenter = window.innerHeight / 2;
+    const nearestRow = projectRows.reduce(
+      (nearest, row) => {
+        const bounds = row.getBoundingClientRect();
+        const distance = Math.abs(
+          bounds.top + bounds.height / 2 - viewportCenter,
+        );
+        return distance < nearest.distance ? { row, distance } : nearest;
+      },
+      { row: projectRows[0], distance: Number.POSITIVE_INFINITY },
+    );
+
+    activateProject(nearestRow.row);
+  };
+
+  const flowLinePath = projectFlowLine?.querySelector("path");
+  if (
+    projectList &&
+    projectFlowLine instanceof SVGSVGElement &&
+    flowLinePath
+  ) {
+    const pathLength = flowLinePath.getTotalLength();
+    gsap.set(flowLinePath, {
+      strokeDasharray: pathLength,
+      strokeDashoffset: prefersReducedMotion ? 0 : pathLength,
+    });
+
+    const flowLineObserver = new IntersectionObserver(([entry]) => {
+      projectFlowLine.classList.toggle("is-visible", entry.isIntersecting);
+    });
+    flowLineObserver.observe(projectList);
+
+    if (!prefersReducedMotion) {
+      gsap.to(flowLinePath, {
+        strokeDashoffset: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: projectList,
+          start: "top 78%",
+          end: "bottom 22%",
+          scrub: true,
+          invalidateOnRefresh: true,
+          onUpdate: updateProjectShowcase,
+          onRefresh: updateProjectShowcase,
+        },
       });
-    },
-  },
-});
+    } else {
+      ScrollTrigger.create({
+        trigger: projectList,
+        start: "top 78%",
+        end: "bottom 22%",
+        onUpdate: updateProjectShowcase,
+        onRefresh: updateProjectShowcase,
+      });
+    }
+  } else {
+    ScrollTrigger.create({
+      trigger: projectShowcase,
+      start: "top bottom",
+      end: "bottom top",
+      onUpdate: updateProjectShowcase,
+      onRefresh: updateProjectShowcase,
+    });
+  }
+}
 
-// project ani
+const projectGallery = document.querySelector(".project-gallery");
+const galleryStage = document.querySelector(".gallery-stage");
+const galleryCopy = document.querySelector(".gallery-copy");
+const galleryCopyMotion = document.querySelector(".gallery-copy-motion");
+const galleryKicker = document.querySelector(".gallery-copy .intro-kicker");
+const galleryProgress = document.querySelector(".gallery-progress-fill");
+const galleryCurrent = document.querySelector(".gallery-count span");
+const galleryCards = [...document.querySelectorAll(".gallery-card")];
+const galleryFaces = [...document.querySelectorAll(".gallery-card-face")];
+const galleryWords = [...document.querySelectorAll(".gallery-word")];
+const galleryMotion = { progress: 0 };
 
-let played = false;
+const updateGalleryOrbit = (progress) => {
+  const radiusX = Math.min(window.innerWidth * 0.33, 460);
+  const radiusY = Math.min(window.innerHeight * 0.25, 205);
+  const exitStart = 0.58;
+  const exitRange = 1 - exitStart;
+  const exitCycleProgress = Math.max(
+    0,
+    Math.min(1, (progress - exitStart) / exitRange),
+  );
+  const orbitProgress =
+    progress < exitStart
+      ? progress / exitStart
+      : 1 + exitCycleProgress;
 
-const projectTL = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".projects",
-    pin: true,
-    scrub: 2,
-    end: "+=4000",
-    start: "center 50%",
-  },
-});
+  galleryCards.forEach((card, index) => {
+    const exitProgress = Math.min(
+      1,
+      Math.max(
+        0,
+        (exitCycleProgress - index / galleryCards.length) *
+          galleryCards.length,
+      ),
+    );
+    const easedExit =
+      exitProgress * exitProgress * (3 - 2 * exitProgress);
+    const angle =
+      exitProgress > 0
+        ? 0
+        : (index / galleryCards.length) * Math.PI * 2 -
+          orbitProgress * Math.PI * 2;
+    const depth = Math.sin(angle);
+    const scale = 0.76 + ((depth + 1) / 2) * 0.18;
 
-projectTL
-  .to("#one-pro", {
-    bottom: 800,
-    duration: 2.1,
-    ease: "none",
-    onStart: () => {
-      played = true;
-    },
-
-    onUpdate: function () {
-      if (this.progress() >= 0.5 && played) {
-        h2.textContent = "dm system";
-        p.textContent =
-          "Patients can book available appointment slots, doctors can accept or confirm requests, and both can track their scheduled appointments.";
-        btn.textContent = "See Project";
-        btn.href = "https://doctor-managment-system-nu.vercel.app/";
-        textTm.restart();
-        played = false;
-      }
-
-      if (this.progress() <= 0.5 && played) {
-        h2.textContent = "dm system";
-        p.textContent =
-          "Patients can book available appointment slots, doctors can accept or confirm requests, and both can track their scheduled appointments.";
-        btn.textContent = "See Project";
-        btn.href = "https://doctor-managment-system-nu.vercel.app/";
-        textTm.restart();
-        played = false;
-      }
-    },
-    onReverseComplete: () => {
-      played = true;
-    },
-  })
-  .to("#two-pro", {
-    bottom: 800,
-
-    duration: 2.1,
-
-    ease: "none",
-
-    onStart: () => {
-      played = true;
-    },
-
-    onUpdate: function () {
-      if (this.progress() >= 0.5 && played) {
-        h2.textContent = "LM system";
-        p.textContent =
-          "Students can watch courses, track video completion and learning progress, while mentors can upload videos, create playlists, manage courses, and monitor student progress.";
-        btn.textContent = "See Project";
-        btn.href = "https://mini-hackathone-react.vercel.app/";
-        textTm.restart();
-        played = false;
-      }
-
-      if (this.progress() <= 0.5 && played) {
-        h2.textContent = "LM system";
-        p.textContent =
-          "Students can watch courses, track video completion and learning progress, while mentors can upload videos, create playlists, manage courses, and monitor student progress.";
-        btn.textContent = "See Project";
-        btn.href = "https://mini-hackathone-react.vercel.app/";
-        textTm.restart();
-        played = false;
-      }
-    },
-
-    onReverseComplete: () => {
-      played = true;
-    },
-  })
-  .to("#three-pro", {
-    bottom: 800,
-
-    duration: 2.1,
-
-    ease: "none",
-
-    onStart: () => {
-      played = true;
-    },
-
-    onUpdate: function () {
-      if (this.progress() >= 0.5 && played) {
-        h2.textContent = "FinTrack Pro";
-        p.textContent =
-          "Track income, manage expenses, set budgets, and monitor your spending with a clear financial dashboard.";
-        btn.textContent = "See Project";
-        btn.href = "https://fin-track-pro-three-blue.vercel.app/";
-        textTm.restart();
-        played = false;
-      }
-
-      if (this.progress() <= 0.5 && played) {
-        h2.textContent = "FinTrack Pro";
-        p.textContent =
-          "Track income, manage expenses, set budgets, and monitor your spending with a clear financial dashboard.";
-        btn.textContent = "See Project";
-        btn.href = "https://fin-track-pro-three-blue.vercel.app/";
-        textTm.restart();
-        played = false;
-      }
-    },
-
-    onReverseComplete: () => {
-      played = true;
-    },
-  })
-  .to("#four-pro", {
-    bottom: 800,
-
-    duration: 2.1,
-
-    ease: "none",
-
-    onStart: () => {
-      played = true;
-    },
-
-    onUpdate: function () {
-      if (this.progress() >= 0.5 && played) {
-        h2.textContent = "SM System";
-        p.textContent =
-          "Manage products, monitor stock levels, track inventory, and keep product availability organized from one dashboard.";
-        btn.textContent = "See Project";
-        btn.href = "https://assignment-3-in-js.vercel.app/";
-        textTm.restart();
-        played = false;
-      }
-
-      if (this.progress() <= 0.5 && played) {
-        h2.textContent = "SM System";
-        p.textContent =
-          "Manage products, monitor stock levels, track inventory, and keep product availability organized from one dashboard.";
-        btn.textContent = "See Project";
-        btn.href = "https://assignment-3-in-js.vercel.app/";
-        textTm.restart();
-        played = false;
-      }
-    },
-
-    onReverseComplete: () => {
-      played = true;
-    },
-  })
-  .to("#five-pro", {
-    bottom: 800,
-
-    duration: 2.1,
-
-    ease: "none",
-
-    onStart: () => {
-      played = true;
-    },
-
-    onUpdate: function () {
-      if (this.progress() >= 0.5 && played) {
-        h2.textContent = "Productivity Dashboard";
-        p.textContent =
-          "Plan tasks, organize projects, track progress, and manage daily work from one focused workspace.";
-        btn.textContent = "See Project";
-        btn.href = "https://a9-assignment.vercel.app/";
-        textTm.restart();
-        played = false;
-      }
-
-      if (this.progress() <= 0.5 && played) {
-        h2.textContent = "Productivity Dashboard";
-        p.textContent =
-          "Plan tasks, organize projects, track progress, and manage daily work from one focused workspace.";
-        btn.textContent = "See Project";
-        btn.href = "https://a9-assignment.vercel.app/";
-        textTm.restart();
-        played = false;
-      }
-    },
-
-    onReverseComplete: () => {
-      played = true;
-    },
-  })
-  .to("#six-pro", {
-    bottom: 800,
-
-    duration: 2.1,
-
-    ease: "none",
-
-    onStart: () => {
-      played = true;
-    },
-
-    onUpdate: function () {
-      if (this.progress() >= 0.5 && played) {
-        h2.textContent = "E-Commerce";
-        p.textContent =
-          "Discover products, manage your cart, and shop seamlessly through a clean and intuitive online store.";
-        btn.textContent = "See Project";
-        btn.href = "https://assignment10-shery1.vercel.app/";
-        textTm.restart();
-        played = false;
-      }
-
-      if (this.progress() <= 0.5 && played) {
-        h2.textContent = "E-Commerce";
-        p.textContent =
-          "Discover products, manage your cart, and shop seamlessly through a clean and intuitive online store.";
-        btn.textContent = "See Project";
-        btn.href = "https://assignment10-shery1.vercel.app/";
-        textTm.restart();
-        played = false;
-      }
-    },
-
-    onReverseComplete: () => {
-      played = true;
-    },
+    gsap.set(card, {
+      x:
+        Math.cos(angle) * radiusX +
+        easedExit * (window.innerWidth * 1.2 + card.offsetWidth),
+      y: depth * radiusY * (1 - easedExit),
+      scale,
+      autoAlpha: 1 - easedExit,
+      zIndex: exitProgress > 0 ? 20 + index : Math.round(10 + depth * 10),
+    });
   });
+};
 
-const textTm = gsap.timeline({ paused: true });
-textTm
-  .to(
-    ".projects-content h2",
-    {
-      y: 0,
-      duration: 0.6,
-      ease: "back.out(1)",
-      opacity: 1,
-    },
-    "<",
-  )
-  .to(
-    ".projects-content h4",
-    {
-      y: 0,
-      duration: 0.6,
-      ease: "back.out(1)",
-      opacity: 1,
-    },
-    "<",
-  )
-  .to(
-    ".projects-content .btn a",
-    {
-      y: 0,
-      duration: 0.6,
-      ease: "back.out(1)",
-      opacity: 1,
-    },
-    "<",
+if (
+  projectGallery &&
+  galleryStage &&
+  galleryCopy &&
+  galleryCopyMotion &&
+  galleryProgress &&
+  galleryCurrent &&
+  galleryCards.length > 0 &&
+  galleryWords.length > 0 &&
+  galleryFaces.length === galleryCards.length
+) {
+  updateGalleryOrbit(0);
+  window.addEventListener("resize", () =>
+    updateGalleryOrbit(galleryMotion.progress),
   );
 
-const skillTimeLine = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".skills",
-    start: "top top",
-    end: "+=4000",
-    pin: true,
-    scrub: true,
-  },
+  if (!prefersReducedMotion) {
+    const galleryTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: projectGallery,
+        start: "top top",
+        end: () => `+=${window.innerHeight * 4.5}`,
+        pin: projectGallery,
+        scrub: 0.8,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onRefresh: () => {
+          lenis?.resize();
+          updateGalleryOrbit(galleryMotion.progress);
+        },
+        onUpdate: ({ progress }) => {
+          gsap.set(galleryProgress, { scaleX: progress });
+          galleryCurrent.textContent = String(
+            Math.min(
+              galleryCards.length,
+              Math.floor(progress * galleryCards.length) + 1,
+            ),
+          ).padStart(2, "0");
+        },
+      },
+    });
+
+    galleryTimeline.to(
+      galleryMotion,
+      {
+        progress: 1,
+        duration: 1,
+        ease: "none",
+        onUpdate: () => updateGalleryOrbit(galleryMotion.progress),
+      },
+      0,
+    );
+    galleryTimeline.fromTo(
+      galleryCopyMotion,
+      { autoAlpha: 0, y: 24 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.12,
+        ease: "power2.out",
+      },
+      0,
+    );
+    galleryTimeline.fromTo(
+      galleryWords,
+      { autoAlpha: 0, y: 14, filter: "blur(5px)" },
+      {
+        autoAlpha: 1,
+        y: 0,
+        filter: "blur(0px)",
+        duration: 0.1,
+        stagger: 0.045,
+        ease: "power2.out",
+      },
+      0.06,
+    );
+    galleryTimeline.to(
+      galleryWords,
+      {
+        autoAlpha: 0,
+        y: -14,
+        filter: "blur(5px)",
+        duration: 0.08,
+        stagger: { each: 0.022, from: "end" },
+        ease: "power2.in",
+      },
+      0.7,
+    );
+    if (galleryKicker) {
+      galleryTimeline.to(
+        galleryKicker,
+        {
+          autoAlpha: 0,
+          y: -10,
+          filter: "blur(4px)",
+          duration: 0.12,
+          ease: "power2.in",
+        },
+        0.82,
+      );
+    }
+    galleryTimeline.fromTo(
+      galleryFaces,
+      { y: 72, scale: 0.58, autoAlpha: 0 },
+      {
+        y: 0,
+        scale: 1,
+        autoAlpha: 1,
+        duration: 0.12,
+        stagger: 0.07,
+        ease: "power3.out",
+      },
+      0,
+    );
+  } else {
+    gsap.set(galleryCopyMotion, { autoAlpha: 1 });
+    gsap.set(galleryWords, { autoAlpha: 1, clearProps: "filter,transform" });
+  }
+}
+
+const skillToggles = [...document.querySelectorAll(".skill-toggle")];
+skillToggles.forEach((toggle) => {
+  toggle.addEventListener("click", () => {
+    const panelId = toggle.getAttribute("aria-controls");
+    const panel = panelId ? document.getElementById(panelId) : null;
+    const group = toggle.closest(".skill-group");
+
+    if (!(panel instanceof HTMLElement) || !group) {
+      console.error("Unable to find the skill panel for the selected category.");
+      return;
+    }
+
+    if (toggle.getAttribute("aria-expanded") === "true") return;
+
+    skillToggles.forEach((otherToggle) => {
+      const otherPanelId = otherToggle.getAttribute("aria-controls");
+      const otherPanel = otherPanelId
+        ? document.getElementById(otherPanelId)
+        : null;
+      const otherGroup = otherToggle.closest(".skill-group");
+
+      if (
+        !(otherPanel instanceof HTMLElement) ||
+        !otherGroup ||
+        otherToggle === toggle ||
+        otherToggle.getAttribute("aria-expanded") !== "true"
+      ) {
+        return;
+      }
+
+      otherToggle.setAttribute("aria-expanded", "false");
+      otherGroup.classList.remove("is-open");
+
+      if (prefersReducedMotion) {
+        otherPanel.hidden = true;
+        return;
+      }
+
+      gsap.killTweensOf(otherPanel);
+      gsap.to(otherPanel, {
+        height: 0,
+        autoAlpha: 0,
+        duration: 0.45,
+        ease: "power2.inOut",
+        onComplete: () => {
+          otherPanel.hidden = true;
+          gsap.set(otherPanel, { clearProps: "height,opacity,visibility" });
+        },
+      });
+    });
+
+    toggle.setAttribute("aria-expanded", "true");
+    group.classList.add("is-open");
+    panel.hidden = false;
+
+    const skillItems = panel.querySelectorAll("li");
+    if (prefersReducedMotion) return;
+
+    gsap.killTweensOf(panel);
+    gsap.set(panel, { height: 0, autoAlpha: 0 });
+    gsap.to(panel, {
+      height: "auto",
+      autoAlpha: 1,
+      duration: 0.65,
+      ease: "power3.inOut",
+      onComplete: () => {
+        gsap.set(panel, { clearProps: "height,opacity,visibility" });
+      },
+    });
+    gsap.fromTo(
+      skillItems,
+      { y: 12, autoAlpha: 0 },
+      {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.4,
+        stagger: 0.045,
+        delay: 0.08,
+        ease: "power2.out",
+      },
+    );
+  });
 });
 
-skillTimeLine
-  .to("#skill-html", {
-    duration: 1.5,
-    ease: "power1.inOut",
-    bottom: 30,
-    x: 200,
-  })
-  .to("#skill-css", {
-    duration: 1.5,
-    ease: "power2.out",
-    bottom: 60,
-    x: 300,
-  })
-  .to("#skill-js", {
-    duration: 1.5,
+featuredProject?.addEventListener("pointerenter", () => {
+  featuredProject.classList.add("is-hovered");
+});
+
+featuredProject?.addEventListener("pointerleave", () => {
+  featuredProject.classList.remove("is-hovered");
+});
+
+featuredProject?.addEventListener("pointermove", (event) => {
+  if (!(projectCursor instanceof HTMLElement)) return;
+
+  const bounds = featuredProject.getBoundingClientRect();
+  projectCursor.style.left = `${event.clientX - bounds.left}px`;
+  projectCursor.style.top = `${event.clientY - bounds.top}px`;
+});
+
+document.documentElement.classList.add("has-js");
+
+if (!prefersReducedMotion) {
+  gsap.from(
+    ".hero-top > *, .hero-heading-meta > *, .hero-title > *, .hero-statement-row > *, .hero-bottom > *",
+    {
+    y: 24,
+    opacity: 0,
+    duration: 0.9,
+    stagger: 0.09,
     ease: "power3.out",
-    bottom: 90,
-    x: 400,
-  })
-  .to("#skill-react", {
-    duration: 1.5,
-    ease: "back.out(1.4)",
-    bottom: 120,
-    x: 500,
-  })
-  .to("#skill-typescript", {
-    duration: 1.5,
-    ease: "power2.inOut",
-    bottom: 30,
-    x: -250,
-  })
-  .to("#skill-gsap", {
-    duration: 1.5,
-    ease: "back.out(1.7)",
-    bottom: 60,
-    x: -350,
-  })
-  .to("#skill-tailwind", {
-    duration: 1.5,
-    ease: "power3.out",
-    bottom: 90,
-    x: -450,
-  })
-  .to("#skill-github", {
-    duration: 1.5,
-    ease: "power4.out",
-    bottom: 120,
-    x: -550,
+    delay: 0.15,
+    },
+  );
+
+  const splitIntoWords = (element, className) => {
+    const textWalker = document.createTreeWalker(
+      element,
+      NodeFilter.SHOW_TEXT,
+    );
+    const textNodes = [];
+
+    while (textWalker.nextNode()) {
+      if (textWalker.currentNode.textContent?.trim()) {
+        textNodes.push(textWalker.currentNode);
+      }
+    }
+
+    textNodes.forEach((textNode) => {
+      const fragment = document.createDocumentFragment();
+      const parts = textNode.textContent.match(/\s+|[^\s]+/g) ?? [];
+
+      parts.forEach((part) => {
+        if (/^\s+$/.test(part)) {
+          fragment.append(document.createTextNode(part));
+        } else {
+          const word = document.createElement("span");
+          word.className = className;
+          word.textContent = part;
+          fragment.append(word);
+        }
+      });
+
+      textNode.replaceWith(fragment);
+    });
+  };
+
+  const intro = document.querySelector(".intro");
+  const introKicker = document.querySelector(".intro-heading .intro-kicker");
+  const introWords = [
+    ...document.querySelectorAll(".intro-title-line .about-word"),
+  ];
+  const introLead = document.querySelector(".intro-lead");
+  const introAside = document.querySelector(".intro-aside");
+  const introLink = document.querySelector(".intro-link");
+
+  if (
+    intro &&
+    introKicker &&
+    introWords.length > 0 &&
+    introLead &&
+    introAside &&
+    introLink
+  ) {
+    splitIntoWords(introLead, "about-word");
+
+    const introLeadWords = [...introLead.querySelectorAll(".about-word")];
+    const aboutTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: intro,
+        start: "top 78%",
+        end: "bottom 38%",
+        scrub: 0.8,
+      },
+    });
+
+    aboutTimeline.fromTo(
+      introKicker,
+      { y: 14, autoAlpha: 0, filter: "blur(6px)" },
+      { y: 0, autoAlpha: 1, filter: "blur(0px)", duration: 0.12 },
+      0,
+    );
+    aboutTimeline.fromTo(
+      introWords,
+      { y: 18, autoAlpha: 0.15, filter: "blur(8px)" },
+      {
+        y: 0,
+        autoAlpha: 1,
+        filter: "blur(0px)",
+        duration: 0.48,
+        stagger: 0.075,
+        ease: "power2.out",
+      },
+      0.08,
+    );
+    aboutTimeline.fromTo(
+      introLeadWords,
+      { y: 8, autoAlpha: 0.18, filter: "blur(5px)" },
+      {
+        y: 0,
+        autoAlpha: 1,
+        filter: "blur(0px)",
+        duration: 0.42,
+        stagger: 0.012,
+        ease: "power2.out",
+      },
+      0.38,
+    );
+    aboutTimeline.fromTo(
+      [introAside, introLink],
+      { y: 18, autoAlpha: 0 },
+      {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.18,
+        stagger: 0.08,
+        ease: "power2.out",
+      },
+      0.78,
+    );
+  }
+
+  const contact = document.querySelector(".contact");
+  const contactKicker = document.querySelector(".contact-heading .intro-kicker");
+  const contactTitleLines = [
+    ...document.querySelectorAll(".contact-title-line > span"),
+  ];
+  const contactCopy = document.querySelector(".contact-copy");
+  const contactEmail = document.querySelector(".contact-email");
+  const contactSocials = document.querySelector(".contact-socials");
+  const contactCredit = document.querySelector(".contact-credit");
+
+  if (
+    contact &&
+    contactKicker &&
+    contactTitleLines.length > 0 &&
+    contactCopy &&
+    contactEmail &&
+    contactSocials &&
+    contactCredit
+  ) {
+    splitIntoWords(contactCopy, "contact-copy-word");
+
+    const contactTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: contact,
+        start: "top top",
+        end: () => `+=${window.innerHeight * 1.35}`,
+        pin: contact,
+        scrub: 0.8,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onRefresh: () => lenis?.resize(),
+      },
+    });
+
+    contactTimeline.fromTo(
+      contactKicker,
+      { y: 14, autoAlpha: 0, filter: "blur(6px)" },
+      {
+        y: 0,
+        autoAlpha: 1,
+        filter: "blur(0px)",
+        duration: 0.12,
+        ease: "power2.out",
+      },
+      0,
+    );
+    contactTimeline.fromTo(
+      contactTitleLines,
+      { y: 18, autoAlpha: 0 },
+      {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.18,
+        stagger: 0.08,
+        ease: "power2.out",
+      },
+      0.04,
+    );
+    contactTimeline.fromTo(
+      contactCopy.querySelectorAll(".contact-copy-word"),
+      { y: 10, autoAlpha: 0.12, filter: "blur(5px)" },
+      {
+        y: 0,
+        autoAlpha: 1,
+        filter: "blur(0px)",
+        duration: 0.3,
+        stagger: 0.014,
+        ease: "power2.out",
+      },
+      0.3,
+    );
+    contactTimeline.fromTo(
+      [contactEmail, contactSocials, contactCredit],
+      { y: 18, autoAlpha: 0 },
+      {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.18,
+        stagger: 0.08,
+        ease: "power2.out",
+      },
+      0.68,
+    );
+  }
+
+  gsap.utils.toArray("[data-reveal]").forEach((element) => {
+    gsap.fromTo(
+      element,
+      { y: 28, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out",
+        clearProps: "transform",
+        scrollTrigger: {
+          trigger: element,
+          start: "top 88%",
+          once: true,
+        },
+      },
+    );
   });
+}

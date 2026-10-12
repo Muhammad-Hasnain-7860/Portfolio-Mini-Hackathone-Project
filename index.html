@@ -1,335 +1,499 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>portfolio-mini-hackathone</title>
+    <meta
+      name="description"
+      content="Muhammad Hasnain — frontend developer building modern websites and interactive digital experiences."
+    />
+    <meta name="theme-color" content="#10110f" />
+    <title>Muhammad Hasnain — Frontend Developer</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
       rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/lenis@1.3.26/dist/lenis.css"
     />
   </head>
   <body>
-    <div id="app">
-      <div class="loader">
-        <div class="counter">
-          <div class="line"></div>
-          <div class="count">
-            <h2>0%</h2>
-          </div>
-        </div>
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+    <main>
+  <section class="hero" id="home">
+    <div class="hero-glow" aria-hidden="true"></div>
+
+    <!-- Header / Nav -->
+    <header class="hero-header">
+      <div class="hero-brand">
+        <span>AVAILABLE FOR WORK</span>
+      </div>
+      <nav class="hero-nav" aria-label="Main navigation">
+        <a href="/works/">WORK</a>
+        <a href="/info/">INFO</a>
+        <a href="/contact/">CONTACT <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="hero-main">
+      <div class="hero-intro">
+        <p class="hero-role">
+          Full-stack developer, bringing ideas to life through <em>design, code and motion.</em>
+        </p>
+        <p class="hero-note">
+          Thoughtful interfaces.<br />
+          Reliable systems.
+        </p>
       </div>
 
-      <div class="hero-warpper">
-        <div class="hero-section">
-          <nav>
-            <div class="logo">
-              <img src="/src/images/image.png" alt="" />
-            </div>
+      <h1 class="hero-title">
+        <span class="hero-first">Muhammad</span>
+        <span class="hero-last">Hasnain</span>
+      </h1>
+    </main>
 
-            <div class="links">
-              <div>
-                <p class="one">
-                  <span>S</span><span>k</span><span>i</span><span>l</span
-                  ><span>l</span><span>l</span><span>s</span>
-                </p>
-                <p class="two two-click-portfolio">
-                  <span>S</span><span>k</span><span>i</span><span>l</span><span>l</span><span>s</span>
+    <!-- Footer Meta -->
+    <footer class="hero-footer">
+      <div class="hero-socials">
+        <a href="https://github.com/Muhammad-Hasnain-7860" target="_blank" rel="noreferrer">
+          GITHUB <span aria-hidden="true">↗</span>
+        </a>
+        <a href="mailto:muhammadhasnain7950@gmail.com">
+          EMAIL <span aria-hidden="true">↗</span>
+        </a>
+         <a target="_blank" href="https://www.linkedin.com/in/muhammadhasnain123/">
+          LINKEDIN <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </footer>
+  </section>
+
+      <section class="intro section-pad" id="about">
+        <div class="intro-index"><span>01</span><span>ABOUT</span></div>
+        <div class="intro-content">
+          <div class="intro-heading">
+            <p class="intro-kicker">
+              FULL-STACK WEB DEVELOPER
+            </p>
+            <h1>
+              <span class="intro-title-line">
+                <span
+                  ><span class="about-word">I</span>
+                  <span class="about-word">build</span>
+                  <span class="about-word">digital</span></span
+                >
+              </span>
+              <span class="intro-title-line">
+                <span><em class="about-word">experiences.</em></span>
+              </span>
+            </h1>
+          </div>
+          <div class="intro-bottom">
+            <p class="intro-lead">
+              I’m Muhammad Hasnain, a full-stack web developer from Pakistan. I
+              bring products to life from thoughtful, responsive interfaces to
+              reliable backend features—with care for the details that make an
+              experience feel right.
+            </p>
+            <div class="intro-aside">
+              <div class="intro-focus">
+                <span class="intro-focus-index">01 / WHAT I DO</span>
+                <h2>Full-stack development</h2>
+                <p>
+                  Building for people, from the first screen to the data behind
+                  it.
                 </p>
               </div>
-
-              <div>
-                <p class="one">
-                  <span>M</span><span>y</span> <span>P</span><span>r</span
-                  ><span>o</span><span>j</span><span>e</span><span>c</span
-                  ><span>t</span><span>s</span>
-                </p>
-                <p class="two two-click-project">
-                  <span>M</span><span>y</span> <span>P</span><span>r</span
-                  ><span>o</span><span>j</span><span>e</span><span>c</span
-                  ><span>t</span><span>s</span>
-                </p>
-              </div>
-
-              <div>
-                <p class="one">
-                  <span>A</span><span>b</span><span>o</span><span>u</span
-                  ><span>t</span>
-                </p>
-                <p class="two two-click-about">
-                  <span>A</span><span>b</span><span>o</span><span>u</span
-                  ><span>t</span>
-                </p>
+              <div class="intro-stack">
+                <span class="intro-focus-index">MY EVERYDAY TOOLKIT</span>
+                <p><span>FRONTEND</span> React · JavaScript · CSS</p>
+                <p><span>BACKEND</span> Node.js · Express · MongoDB</p>
               </div>
             </div>
+          </div>
+          <a class="intro-link" href="#work">
+            EXPLORE MY WORK <span aria-hidden="true">↘</span>
+          </a>
+        </div>
+      </section>
 
-            <div class="nav-last">
-              <img src="/src/images/has.jpg" alt="" />
-              <div>
-                <p>Start a project</p>
+      <section class="work" id="work">
+        <div class="work-heading section-pad" data-reveal>
+          <div class="intro-index">
+            <span>02</span><span>SELECTED WORK</span>
+          </div>
+          <h2>Things I’ve <em>built.</em></h2>
+        </div>
+
+        <div class="project-showcase" data-reveal>
+          <a
+            class="featured-project"
+            href="https://doctor-managment-system-nu.vercel.app/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="View Doctor Management System"
+          >
+            <img
+              class="featured-image"
+              src="/src/images/project1.png"
+              alt="Doctor appointment management system"
+            />
+            <span class="featured-label">
+              <span class="featured-title">DOCTOR MANAGEMENT SYSTEM</span>
+              <span>OPEN PROJECT ↗</span>
+            </span>
+            <span class="project-cursor" aria-hidden="true">SEE PROJECT ↗</span>
+          </a>
+
+          <div class="project-list" aria-label="Project list">
+            <svg
+              class="project-flow-line"
+              viewBox="0 0 1000 1400"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M -52,0 C 195,-20 390,150 351,400 C 318,650 0,655 195,1050 C 390,1385 423,1250 553,1200 C 683,1150 878,1250 1000,1300"
+              />
+            </svg>
+            <a
+              class="project-row is-active"
+              href="https://doctor-managment-system-nu.vercel.app/"
+              target="_blank"
+              rel="noreferrer"
+              data-image="/src/images/project1.png"
+              data-alt="Doctor appointment management system"
+              data-title="Doctor Management System"
+              data-description="Patient and doctor appointment management."
+            >
+              <span class="project-number">01</span>
+              <span class="project-name">Doctor Management System</span>
+              <span class="project-arrow">↗</span>
+            </a>
+            <a
+              class="project-row"
+              href="https://mini-hackathone-react.vercel.app/"
+              target="_blank"
+              rel="noreferrer"
+              data-image="/src/images/project 22.png"
+              data-alt="Learning management system interface"
+              data-title="Learning Management System"
+              data-description="Course content and learning progress management."
+            >
+              <span class="project-number">02</span>
+              <span class="project-name">Learning Management System</span>
+              <span class="project-arrow">↗</span>
+            </a>
+            <a
+              class="project-row"
+              href="https://fin-track-pro-three-blue.vercel.app/"
+              target="_blank"
+              rel="noreferrer"
+              data-image="/src/images/project 11.png"
+              data-alt="FinTrack Pro finance dashboard"
+              data-title="FinTrack Pro"
+              data-description="Income, expenses, budgets, and financial tracking."
+            >
+              <span class="project-number">03</span>
+              <span class="project-name">FinTrack Pro</span>
+              <span class="project-arrow">↗</span>
+            </a>
+            <a
+              class="project-row"
+              href="https://assignment-3-in-js.vercel.app/"
+              target="_blank"
+              rel="noreferrer"
+              data-image="/src/images/project 4.png"
+              data-alt="Stock management dashboard"
+              data-title="Stock Management System"
+              data-description="Product and inventory management."
+            >
+              <span class="project-number">04</span>
+              <span class="project-name">Stock Management System</span>
+              <span class="project-arrow">↗</span>
+            </a>
+            <a
+              class="project-row"
+              href="https://a9-assignment.vercel.app/"
+              target="_blank"
+              rel="noreferrer"
+              data-image="/src/images/project 5.png"
+              data-alt="Productivity dashboard"
+              data-title="Productivity Dashboard"
+              data-description="Tasks and daily work in one dashboard."
+            >
+              <span class="project-number">05</span>
+              <span class="project-name">Productivity Dashboard</span>
+              <span class="project-arrow">↗</span>
+            </a>
+            <a
+              class="project-row"
+              href="https://assignment10-shery1.vercel.app/"
+              target="_blank"
+              rel="noreferrer"
+              data-image="/src/images/project 6.jpeg"
+              data-alt="E-commerce website"
+              data-title="E-Commerce"
+              data-description="An online store and shopping experience."
+            >
+              <span class="project-number">06</span>
+              <span class="project-name">E-Commerce</span>
+              <span class="project-arrow">↗</span>
+            </a>
+            <p class="project-description" aria-live="polite">
+              Patient and doctor appointment management.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="project-gallery" aria-label="Project gallery">
+        <div class="gallery-stage">
+          <div class="gallery-orbit" aria-hidden="true">
+            <figure class="gallery-card">
+              <div class="gallery-card-face">
+                <img src="/src/images/project1.png" alt="" loading="lazy" />
+              </div>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card-face">
+                <img src="/src/images/project 22.png" alt="" loading="lazy" />
+              </div>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card-face">
+                <img src="/src/images/project 11.png" alt="" loading="lazy" />
+              </div>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card-face">
+                <img src="/src/images/project 4.png" alt="" loading="lazy" />
+              </div>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card-face">
+                <img src="/src/images/project 5.png" alt="" loading="lazy" />
+              </div>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card-face">
+                <img src="/src/images/project 6.jpeg" alt="" loading="lazy" />
+              </div>
+            </figure>
+          </div>
+          <div class="gallery-copy-motion">
+            <div class="gallery-copy">
+              <h2>
+                <span class="gallery-word">Each</span>
+                <span class="gallery-word">project</span>
+                <span class="gallery-word">is</span>
+                <span class="gallery-word">a</span>
+                <span class="gallery-word">chance</span>
+                <span class="gallery-word">to</span>
+                <em>
+                  <span class="gallery-word">learn,</span>
+                  <span class="gallery-word">experiment,</span>
+                  <span class="gallery-word">and</span>
+                  <span class="gallery-word">build</span>
+                  <span class="gallery-word">better.</span>
+                </em>
+              </h2>
+            </div>
+          </div>
+          <div class="gallery-scroll-hint" aria-hidden="true">
+            <span>SCROLL TO EXPLORE</span>
+            <span class="gallery-progress">
+              <span class="gallery-progress-fill"></span>
+            </span>
+            <span class="gallery-count"><span>01</span> / 06</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="skills section-pad" id="skills">
+        <div class="intro-index">
+          <span>03</span><span>SKILLS &amp; TOOLS</span>
+        </div>
+        <div class="skills-content" data-reveal>
+          <div class="skills-profile">
+            <p class="intro-kicker">A LITTLE ABOUT MY WORK</p>
+            <p class="skills-intro">
+              Crafting full-stack web experiences with thoughtful animations, interactive interfaces, scalable backends, and a focus on performance, detail, and user experience.
+            </p>
+            <div class="skills-contact">
+              <a href="mailto:muhammadhasnain7950@gmail.com">
+                LET’S TALK <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+          <div class="skill-groups" aria-label="Skills and tools">
+            <div class="skill-group is-open">
+              <h3 class="skill-group-heading">
+                <button
+                  class="skill-toggle"
+                  id="skill-toggle-frontend"
+                  type="button"
+                  aria-expanded="true"
+                  aria-controls="skill-panel-frontend"
+                >
+                  <span>Frontend</span
+                  ><span class="skill-toggle-icon" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div
+                class="skill-panel"
+                id="skill-panel-frontend"
+                role="region"
+                aria-labelledby="skill-toggle-frontend"
+              >
+                <ul class="skill-list">
+                  <li>HTML</li>
+                  <li>CSS</li>
+                  <li>JavaScript</li>
+                  <li>React</li>
+                  <li>TypeScript</li>
+                  <li>Tailwind</li>
+                </ul>
               </div>
             </div>
-          </nav>
-
-          <section class="hero">
-            <div class="hero-content">
-              <h1>
-                <span>W</span><span>E</span><span>B</span> <span>D</span
-                ><span>E</span><span>V</span><span>E</span><span>L</span
-                ><span>O</span><span>P</span><span>E</span><span>R</span>
-                <span>F</span><span>R</span><span>O</span><span>N</span
-                ><span>T</span><span>E</span><span>N</span><span>D</span>
-                <br />
-                <span>D</span><span>E</span><span>V</span><span>E</span
-                ><span>L</span><span>O</span><span>P</span><span>E</span
-                ><span>R</span> <span class="name">H</span
-                ><span class="name">A</span><span class="name">S</span
-                ><span class="name">N</span><span class="name">A</span
-                ><span class="name">I</span><span class="name">N</span>
-              </h1>
+            <div class="skill-group">
+              <h3 class="skill-group-heading">
+                <button
+                  class="skill-toggle"
+                  id="skill-toggle-backend"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="skill-panel-backend"
+                >
+                  <span>Backend</span
+                  ><span class="skill-toggle-icon" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div
+                class="skill-panel"
+                id="skill-panel-backend"
+                role="region"
+                aria-labelledby="skill-toggle-backend"
+                hidden
+              >
+                <ul class="skill-list">
+                  <li>Node.js</li>
+                  <li>Express.js</li>
+                  <li>REST APIs</li>
+                  <li>MongoDB</li>
+                  <li>MongoDB indexing</li>
+                  <li>Aggregation pipelines</li>
+                </ul>
+              </div>
             </div>
+            <div class="skill-group">
+              <h3 class="skill-group-heading">
+                <button
+                  class="skill-toggle"
+                  id="skill-toggle-motion"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="skill-panel-motion"
+                >
+                  <span>Motion &amp; interaction</span
+                  ><span class="skill-toggle-icon" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div
+                class="skill-panel"
+                id="skill-panel-motion"
+                role="region"
+                aria-labelledby="skill-toggle-motion"
+                hidden
+              >
+                <ul class="skill-list">
+                  <li>GSAP</li>
+                  <li>Lenis</li>
+                </ul>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h3 class="skill-group-heading">
+                <button
+                  class="skill-toggle"
+                  id="skill-toggle-tools"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="skill-panel-tools"
+                >
+                  <span>Tools &amp; workflow</span
+                  ><span class="skill-toggle-icon" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div
+                class="skill-panel"
+                id="skill-panel-tools"
+                role="region"
+                aria-labelledby="skill-toggle-tools"
+                hidden
+              >
+                <ul class="skill-list">
+                  <li>Git</li>
+                  <li>GitHub</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <div class="hero-last">
-              <p>
-                I build websites that don’t just work — they make an impression.
-                Clean interfaces. Smooth interactions. Thoughtful frontend,
-                built to stand out.
+      <section class="contact section-pad" id="contact">
+        <div class="contact-inner">
+          <div class="contact-top">
+            <div class="intro-index"><span>04</span><span>CONTACT</span></div>
+          </div>
+          <div class="contact-main">
+            <div class="contact-heading">
+              <p class="intro-kicker">HAVE A PROJECT IN MIND?</p>
+              <h2>
+                <span class="contact-title-line"><span>Let’s make</span></span>
+                <span class="contact-title-line"
+                  ><span><em>something good.</em></span></span
+                >
+              </h2>
+            </div>
+            <div class="contact-details">
+              <p class="contact-copy">
+                I’m open to thoughtful collaborations and opportunities to build
+                useful, memorable digital experiences.
               </p>
-            </div>
-
-            <div class="gradient"></div>
-          </section>
-        </div>
-      </div>
-
-      <section class="main-about">
-        <p>WHAT I DO</p>
-
-        <div class="ab-con">
-         <div class="change-h1">
-           <h1>
-            <span>I</span>
-            <span>build</span>
-            <span>modern</span>
-            <span>digital</span>
-            <span>experiences</span>
-            <span>with</span>
-            <span>React</span>
-            <span>and</span>
-            <span>TypeScript</span>
-            <span>combining</span>
-            <span>clean <br> </span>
-            <span>frontend</span>
-            <span>development</span>
-            <span>smooth</span>
-            <span>animations</span>
-            <span>and</span>
-            <span>thoughtful</span>
-            <span>interactions</span>
-          </h1>
-         </div>
-        </div>
-      </section>
-
-      <section class="comming-project">
-        <div class="current">
-          <img src="/src/images/current project.png" alt="" />
-        </div>
-
-        <img class="img" src="/src/images/cup.png" alt="" />
-      </section>
-
-      <section id="projects" class="projects">
-        <div class="projects-content">
-          <div class="heading-project">
-            <p>WHAT I BUILD LOOKS LIKE</p>
-          </div>
-
-          <div>
-            <h2></h2>
-          </div>
-          <div>
-            <h4></h4>
-          </div>
-
-          <div class="btn">
-            <a style="text-decoration: none"></a>
-          </div>
-        </div>
-
-        <div class="project-images">
-          <img id="one-pro" src="/src/images/project1.png" alt="" />
-          <img id="two-pro" src="/src/images/project 22.png" alt="" />
-          <img id="three-pro" src="/src/images/project 11.png" alt="" />
-          <img id="four-pro" src="/src/images/project 4.png" alt="" />
-          <img id="five-pro" src="/src/images/project 5.png" alt="" />
-          <img id="six-pro" src="/src/images/project 6.jpeg" alt="" />
-        </div>
-      </section>
-
-      <div id="about" class="about-section">
-        <h1>About</h1>
-
-        <div class="ab-c">
-          <p>
-            I'm Hasnain, a frontend developer focused on building modern digital
-            experiences with React, TypeScript, and JavaScript. I love turning
-            ideas into clean interfaces with smooth animations and thoughtful
-            interactions.
-          </p>
-
-          <p>
-            I build modern websites that feel fast, clean, and engaging. I focus
-            on creating frontend experiences that look great and work smoothly.
-          </p>
-        </div>
-      </div>
-
-      <section id="skills" class="skills">
-        <div class="sk-he">
-          <h1>MY SKILLS...</h1>
-          <p>( TOOLS I USE TO BUILD )</p>
-        </div>
-
-        <div class="par">
-          <div class="skill-card" id="skill-html">
-            <div class="skill-top">
-              <span>01</span>
-              <span>FRONTEND</span>
-            </div>
-            <h2>HTML</h2>
-            <p>Building clean, semantic and well-structured web interfaces.</p>
-            <div class="skill-bottom">
-              <span>CORE SKILL</span><span>↗</span>
-            </div>
-          </div>
-
-          <div class="skill-card" id="skill-css">
-            <div class="skill-top">
-              <span>02</span>
-              <span>STYLING</span>
-            </div>
-            <h2>CSS</h2>
-            <p>Creating responsive, modern and visually engaging interfaces.</p>
-            <div class="skill-bottom">
-              <span>CORE SKILL</span><span>↗</span>
-            </div>
-          </div>
-
-          <div class="skill-card" id="skill-js">
-            <div class="skill-top">
-              <span>03</span>
-              <span>PROGRAMMING</span>
-            </div>
-            <h2>JAVASCRIPT</h2>
-            <p>Adding dynamic functionality and interactive experiences.</p>
-            <div class="skill-bottom">
-              <span>CORE SKILL</span><span>↗</span>
-            </div>
-          </div>
-
-          <div class="skill-card" id="skill-react">
-            <div class="skill-top">
-              <span>04</span>
-              <span>FRAMEWORK</span>
-            </div>
-            <h2>REACT</h2>
-            <p>Building scalable and interactive component-based interfaces.</p>
-            <div class="skill-bottom">
-              <span>CORE SKILL</span><span>↗</span>
-            </div>
-          </div>
-
-          <div class="skill-card" id="skill-typescript">
-            <div class="skill-top">
-              <span>05</span>
-              <span>LANGUAGE</span>
-            </div>
-            <h2>TYPESCRIPT</h2>
-            <p>Writing safer, predictable and maintainable frontend code.</p>
-            <div class="skill-bottom">
-              <span>CORE SKILL</span><span>↗</span>
-            </div>
-          </div>
-
-          <div class="skill-card" id="skill-gsap">
-            <div class="skill-top">
-              <span>06</span>
-              <span>ANIMATION</span>
-            </div>
-            <h2>GSAP</h2>
-            <p>Creating smooth, expressive and engaging web animations.</p>
-            <div class="skill-bottom">
-              <span>CORE SKILL</span><span>↗</span>
-            </div>
-          </div>
-
-          <div class="skill-card" id="skill-tailwind">
-            <div class="skill-top">
-              <span>07</span>
-              <span>UTILITY</span>
-            </div>
-            <h2>TAILWIND</h2>
-            <p>
-              Building responsive interfaces quickly with utility-first CSS.
-            </p>
-            <div class="skill-bottom">
-              <span>CORE SKILL</span><span>↗</span>
-            </div>
-          </div>
-
-          <div class="skill-card" id="skill-github">
-            <div class="skill-top">
-              <span>08</span>
-              <span>VERSION CONTROL</span>
-            </div>
-            <h2>GIT & GITHUB</h2>
-            <p>
-              Managing projects, tracking changes and collaborating with code.
-            </p>
-            <div class="skill-bottom">
-              <span>CORE SKILL</span><span>↗</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="footer">
-        <div class="footer-top">
-          <div class="f-left">
-            <h2>(Menu)</h2>
-            <div>
-              <p class="two-click-portfolio">Skills</p>
-              <p class="two-click-project">My Project</p>
-              <p class="two-click-about">About</p>
-            </div>
-          </div>
-          <div class="f-center">
-            <h2>(Social Media)</h2>
-            <div>
-              <a href="#"
-                >LinkedIn</a
+              <a
+                class="contact-email"
+                href="mailto:muhammadhasnain7950@gmail.com"
               >
-              <a href="#"
-                >Instagram</a
+                <span>MUHAMMADHASNAIN7950@GMAIL.COM</span><span>↗</span>
+              </a>
+            </div>
+          </div>
+          <div class="contact-footer">
+            <div class="contact-socials" aria-label="Social links">
+              <a
+                href="https://github.com/Muhammad-Hasnain-7860"
+                target="_blank"
+                rel="noreferrer"
+                >GITHUB <span>↗</span></a
+              >
+              <a href="mailto:muhammadhasnain7950@gmail.com"
+                >EMAIL <span>↗</span></a
               >
             </div>
           </div>
-          <div class="f-right">
-            <p>(Say "Hello")</p>
-            <p>muhammadhasnain7950@gmail.com</p>
-          </div>
-        </div>
-        <div class="gradient"></div>
-
-        <div class="footer-bottom">
-          <h1>Hasnain</h1>
-
-          <p>©2026 Muhammad Hasnain</p>
         </div>
       </section>
-    </div>
+    </main>
+
+    <script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

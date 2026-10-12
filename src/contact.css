@@ -1,0 +1,137 @@
+@import "./info.css";
+
+.contact-page {
+  background:
+    radial-gradient(ellipse at 78% 10%, rgba(238, 47, 38, 0.62), transparent 48%),
+    radial-gradient(ellipse at 8% 100%, rgba(50, 81, 77, 0.14), transparent 38%),
+    var(--info-bg);
+}
+
+.contact-main {
+  grid-template-columns: minmax(260px, 0.82fr) minmax(0, 1.45fr);
+}
+
+.contact-profile {
+  gap: 18px;
+}
+
+.contact-panel {
+  padding: clamp(18px, 2.3vw, 28px);
+  border: 1px solid rgba(242, 240, 234, 0.16);
+  background: rgba(16, 17, 15, 0.42);
+}
+
+.contact-panel h2 {
+  margin: 0 0 14px;
+  font-size: clamp(20px, 2.3vw, 30px);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 1.12;
+}
+
+.contact-panel p {
+  margin: 0;
+  color: rgba(242, 240, 234, 0.66);
+  font-size: clamp(12px, 1.15vw, 15px);
+  line-height: 1.7;
+}
+
+.contact-main .info-name {
+  max-width: 720px;
+  font-size: clamp(50px, 6.4vw, 88px);
+  letter-spacing: -0.09em;
+}
+
+.contact-main .info-name em {
+  white-space: nowrap;
+}
+
+.contact-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(18px, 4vw, 56px);
+  padding-top: 17px;
+  border-top: 1px solid var(--info-line);
+}
+
+.contact-link-group h2 {
+  margin: 0 0 12px;
+  color: rgba(242, 240, 234, 0.48);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.contact-link-group ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-link-group li,
+.contact-link-group a {
+  color: rgba(242, 240, 234, 0.82);
+  font-size: clamp(12px, 1.15vw, 15px);
+  line-height: 1.5;
+}
+
+.contact-link-group a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 180ms ease;
+}
+
+.contact-link-group a:hover {
+  color: var(--info-accent);
+}
+
+.contact-link-group a span {
+  color: var(--info-accent);
+  font-size: 12px;
+}
+
+@media (max-width: 1000px) {
+  .contact-main {
+    grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.28fr);
+  }
+
+  .contact-main .info-name {
+    font-size: clamp(46px, 6.8vw, 68px);
+  }
+}
+
+@media (max-width: 700px) {
+  .contact-main {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-profile {
+    gap: 13px;
+  }
+
+  .contact-main .info-name {
+    font-size: clamp(46px, 12.5vw, 70px);
+  }
+
+  .contact-main .info-name em {
+    white-space: normal;
+  }
+
+  .contact-links {
+    gap: 18px;
+  }
+
+  .contact-link-group li,
+  .contact-link-group a {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  .contact-links {
+    grid-template-columns: 1fr;
+  }
+}
